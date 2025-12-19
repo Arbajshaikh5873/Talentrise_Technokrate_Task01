@@ -1,26 +1,20 @@
-import React, { useContext } from 'react'
-import { profileContext } from '../App'
+import React, { useContext } from "react";
+import { profileContext } from "../App";
+import { MdDeleteForever } from "react-icons/md";
+import { FaRegEdit } from "react-icons/fa";
+import UserCart from "./UserCart";
 
 function ViewPage() {
- const { profileData } = useContext(profileContext);
- console.log("profileData inside ViewPage : ", profileData);
+  const { profileData } = useContext(profileContext);
+  console.log("profileData inside ViewPage : ", profileData);
 
- return (
-  <div>
-
-   {profileData.map((data) => {
-    return (
-     <div className='bg-white'>
-      <div>
-       <p>Name : </p>
-       <h1>{(data.name)}</h1>
-      </div>
-     </div>
-    )
-   })}
-
-  </div>
- )
+  return (
+    <div>
+      {profileData.map((user) => {
+        return <UserCart user={user} />;
+      })}
+    </div>
+  );
 }
 
-export default ViewPage
+export default ViewPage;
