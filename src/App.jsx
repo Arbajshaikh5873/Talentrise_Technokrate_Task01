@@ -1,32 +1,25 @@
-import React, { createContext, useMemo, useState } from 'react'
-import Navbar from './components/Navbar'
-import AddEdit from './components/AddEdit'
-import ViewPage from './components/ViewPage';
-
-export const profileContext = createContext();
+import Navbar from "./components/Navbar";
+import AddEdit from "./components/AddEdit";
+import ViewPage from "./components/ViewPage";
+import Home from "./components/Home";
+import { Route, Routes } from "react-router-dom";
+import HomeView from "./components/HomeView";
+import { useState } from "react";
+import Container from "./components/Container";
 
 function App() {
-  const [profileData, setProfileData] = useState([]);
-
-  const profileContextValue = useMemo(() => {
-    return { profileData, setProfileData };
-  }, [profileData])
-
+  const [currentView, setCurrentView] = useState("home");
 
   return (
-    <profileContext.Provider value={profileContextValue}>
-      <div className=' bg-slate-900 h-screen '>
-        <Navbar />
-        {profileData.length == 0 && <div className='text-center font-bold text-red-500'>
-          <p>no data available....</p></div>}
-        {profileData.length == 0 && <AddEdit />}
-
-        {profileData.length > 0 && <ViewPage />}
-
-
-      </div>
-    </profileContext.Provider>
-  )
+    <Container>
+      <Navbar currentView={currentView} setCurrentView={setCurrentView} />
+      {currentView === "home" && <HomeView setCurrentView={setCurrentView} />}
+      {currentView === "addEdit" && <AddEdit setCurrentView={setCurrentView} />}
+      {currentView === "viewPage" && (
+        <ViewPage setCurrentView={setCurrentView} />
+      )}
+    </Container>
+  );
 }
 
-export default App
+export default App;
